@@ -19,6 +19,7 @@ window.analystsInterval = setInterval(() => {
         name: 'happiness',
         value: game.village.happiness,
     }];
+    const buildings = game.bld.meta[0].meta.filter((b) => b.unlocked).map(({ name, val }) => ({ name, value: val }));
 
     fetch('http://localhost:9091/meow', {
         method: 'PUT',
@@ -32,6 +33,7 @@ window.analystsInterval = setInterval(() => {
             energy,
             pollution,
             village,
+            buildings,
         }),
     });
 }, 2 * 1000);
