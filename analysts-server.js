@@ -1,5 +1,8 @@
 import * as http from 'node:http';
 
+const CORS_ALLOW_ORIGIN = process.env.KITTENS_FRONTEND
+      || 'https://kittensgame.com';
+
 /*
   metrics = {
     at: 1674851419333,
@@ -59,7 +62,7 @@ http.createServer((req, res) => {
         res.writeHead(200, {
             'Access-Control-Allow-Headers': 'content-type',
             'Access-Control-Allow-Methods': 'PUT',
-            'Access-Control-Allow-Origin': 'https://kittensgame.com',
+            'Access-Control-Allow-Origin': CORS_ALLOW_ORIGIN,
         });
         consumeMetrics(req).catch((err) => {
             console.error(err);

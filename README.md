@@ -42,6 +42,34 @@ kittens_village_happiness
 
 Tada! Pretty tables! Now hit the "Graph" tab for pretty graphs. See [Prometheus docs](https://prometheus.io/docs/prometheus/latest/querying/basics/) for some more info on querying.
 
+## Oh no no graphs
+
+If you're running kittens locally, and not on https://kittensgame.com , then no data will end up being ingested, and you'll be seeing scary errors in the console.
+
+You can specify a `KITTENS_FRONTEND` environment variable to allow alternate frontends. For example, if your local kittens server is running on `http://localhost:4000`, you can specify (in [any of the supported ways](https://docs.docker.com/compose/environment-variables/set-environment-variables/)):
+
+```
+KITTENS_FRONTEND=http://localhost:4000
+```
+
+For example, in the `docker-compose`'s environment directive:
+
+```
+docker-compose.yml --- YAML
+10 10       - 9090:9090
+11 11   catflap:
+12 12     build: .
+.. 13     environment:
+.. 14       - KITTENS_FRONTEND=http://localhost:4000
+13 15     ports:
+14 16       - 9091:9091
+15 17
+```
+
+Load the server back up, things should be peachy.
+
+Alternatively, you can set the value to `*` to allow *all* possible hosts.
+
 ## Teardown
 
 In the same directory, you can:
@@ -51,3 +79,15 @@ $ docker-compose down
 ```
 
 ...to stop things and take a breath.
+
+## Updates
+
+The server just updated and you want in?
+
+```sh
+$ docker-compose down
+$ docker-compose build
+$ docker-compose up -d
+```
+
+And things should be good.
